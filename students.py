@@ -86,5 +86,4 @@ def find_student(students: dict, name: str) -> list:
         >>> find_student(db, "xyz")
         []
     """
-    # TODO: implement this function
-    raise NotImplementedError("find_student is not implemented yet.")
+    return [s for s in students.values() if name.upper() in s["name"].upper()]

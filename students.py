@@ -32,9 +32,10 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         >>> db
         {"S001": {"name": "Alice", "id": "S001"}}
     """
-    # TODO: implement this function
-    raise NotImplementedError("add_student is not implemented yet.")
-
+    student={}
+    student["name"] = name
+    student["id"] = student_id
+    students[student_id] = student
 
 def remove_student(students: dict, student_id: str) -> dict:
     """

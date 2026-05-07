@@ -1,14 +1,12 @@
 # students.py
 # Developer A — Student management
 # Branch: feature/students
-
+from copy import deepcopy
 # The student database is a dictionary with this structure:
 # {
 #   "S001": {"name": "Alice", "id": "S001"},
 #   "S002": {"name": "Bob",   "id": "S002"},
 # }
-
-
 def add_student(students: dict, name: str, student_id: str) -> dict:
     """
     Add a new student to the students dictionary.
@@ -33,9 +31,13 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         {"S001": {"name": "Alice", "id": "S001"}}
     """
     student={}
-    student["name"] = name
-    student["id"] = student_id
-    students[student_id] = student
+    student["name"] = ' '.join([n.capitalize() for n in name.split()])
+    student["id"] = deepcopy(student_id)
+
+    if student_id not in students:
+        students[student_id] = student
+    else:
+        print(f"Student {student_id} already exists.")
 
 def remove_student(students: dict, student_id: str) -> dict:
     """

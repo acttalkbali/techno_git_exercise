@@ -38,6 +38,7 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         students[student_id] = student
     else:
         print(f"Student {student_id} already exists.")
+    return students
 
 def remove_student(students: dict, student_id: str) -> dict:
     """
@@ -60,6 +61,7 @@ def remove_student(students: dict, student_id: str) -> dict:
         {}
     """
     students.pop(student_id)
+    return students
 
 def find_student(students: dict, name: str) -> list:
     """

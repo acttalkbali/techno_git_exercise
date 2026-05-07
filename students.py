@@ -57,9 +57,7 @@ def remove_student(students: dict, student_id: str) -> dict:
         >>> db
         {}
     """
-    # TODO: implement this function
-    raise NotImplementedError("remove_student is not implemented yet.")
-
+    students.pop(student_id)
 
 def find_student(students: dict, name: str) -> list:
     """

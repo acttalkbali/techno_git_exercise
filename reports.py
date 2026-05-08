@@ -11,11 +11,12 @@ def get_top_students(students: dict, grades: dict, n: int = 3) -> list:
     for student_id, name in students.items():
 
         student_grades = grades.get(student_id, [])
-        if not student_grades:
+        avg=get_average(grades,student_id)
+        """if not student_grades:
             avg = 0.0
         else:
             list_grade=list(map(float,student_grades.values()))
-            avg = sum(list_grade) / len(student_grades)
+            avg = sum(list_grade) / len(student_grades)"""
         results.append((student_id, name, avg))
         results.sort(key=lambda x: x[2], reverse=True)
     return results[:n]
@@ -87,7 +88,7 @@ if __name__ == "__main__":
         1: {"Math": 90, "Science": 95, "History": 88},
         2: {"Math": 70, "Science": 80, "History": 75},
         3: {"Math": 60, "Science": 55, "History": 50},
-        4: [],  # Average: 0.0 (Empty list)
+        4: {},  # Average: 0.0 (Empty list)
         
     }
 

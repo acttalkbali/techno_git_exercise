@@ -91,9 +91,8 @@ def get_subjects(grades: dict) -> set:
         {"Math", "English", "Science"}
     """
     matter = set()
-    for student in grades.values():
-        for k in student:
-            matter.add(k)
+    for matter_list in [val.keys() for val in grades.values()]:
+        matter = matter.union(matter_list)
     return matter
 
 def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> list:

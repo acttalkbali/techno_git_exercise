@@ -60,7 +60,10 @@ def remove_student(students: dict, student_id: str) -> dict:
         >>> db
         {}
     """
-    students.pop(student_id)
+    try:
+        students.pop(student_id)
+    except KeyError:
+        print(f"The student{student_id} does not exist")
     return students
 
 def find_student(students: dict, name: str) -> list:

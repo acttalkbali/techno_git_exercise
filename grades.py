@@ -29,23 +29,21 @@ def add_grade(grades: dict, student_id: str, subject: str, score: int) -> dict:
         dict: the updated grades dictionary
 
     Example:
-        db = {}
-        add_grade(db, "S001", "Math", 85)
-        db
+        >>> db = {}
+        >>> add_grade(db, "S001", "Math", 85)
+        >>> db
         {"S001": {"Math": 85}}
     """
-    # TODO: implement this function
-    # raise NotImplementedError("add_grade is not implemented yet.")
     if 0 <= score <=100:
         grade={}
         grade[subject]=score                        # Creating a dictionary subject,score
         try:
             grades[student_id].update(grade)        # Update the student's grades dictionary if exists
-        except:
+        except KeyError:
             grades[student_id]=grade                # Create an entry for the new student
     else:
         print("Invalid score:",score,". Score must range from 0 to 100.",sep="")
-    return
+    return grades
 
 def get_average(grades: dict, student_id: str) -> float:
     """
@@ -62,20 +60,14 @@ def get_average(grades: dict, student_id: str) -> float:
         float: the average score, rounded to 2 decimal places
 
     Example:
-        db = {"S001": {"Math": 80, "English": 90}}
-        get_average(db, "S001")
+        >>> db = {"S001": {"Math": 80, "English": 90}}
+        >>> get_average(db, "S001")
         85.0
-        get_average(db, "S999")
+        >>> get_average(db, "S999")
         0.0
     """
-    # TODO: implement this function
-    # raise NotImplementedError("get_average is not implemented yet.")
-    for key in grades:
-        if key == student_id:
-            scores={}
-            scores=list(grades[key].values())           # Generates a list of scores
-            return(round(sum(scores)/len(scores),1))    # Return the average score
-    return(0.0)                                         # Default return value if student doesn't exist
+    scores = list(grades.get(student_id,{}).values())
+    return round(sum(scores) / len(scores), 2) if scores else 0.0
 
 def get_subjects(grades: dict) -> set:
     """
@@ -91,27 +83,22 @@ def get_subjects(grades: dict) -> set:
         set: a set of subject name strings
 
     Example:
-        db = {
-          "S001": {"Math": 80, "English": 90},
-          "S002": {"Math": 70, "Science": 65},
-         }
-        get_subjects(db)
+        >>> db = {
+                "S001": {"Math": 80, "English": 90},
+                "S002": {"Math": 70, "Science": 65},
+            }
+        >>> get_subjects(db)
         {"Math", "English", "Science"}
     """
-    # TODO: implement this function
-    # raise NotImplementedError("get_subjects is not implemented yet.")
     for key in grades:
         matter = []
-        # list(grades.values())[0] #.values()
-        #print(grades)
         cnt1=0
         for key in grades:
             subjects=(list(grades.values())[cnt1])
-            cnt2=0
             for k in subjects:
                 matter.append(k)
             cnt1+=1
-        return(set(matter))
+        return set(matter)
 
 def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> list:
     """
@@ -131,14 +118,12 @@ def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> l
         list[tuple]: list of (student_id, name, average) sorted by average
 
     Example:
-        students = {"S001": {"name": "Alice", "id": "S001"},
-                    "S002": {"name": "Bob",   "id": "S002"}}
-        grades   = {"S001": {"Math": 40}, "S002": {"Math": 80}}
-        get_failing_students(students, grades)
+        >>> students = {"S001": {"name": "Alice", "id": "S001"},
+                        "S002": {"name": "Bob",   "id": "S002"}}
+        >>> grades   = {"S001": {"Math": 40}, "S002": {"Math": 80}}
+        >>> get_failing_students(students, grades)
         [("S001", "Alice", 40.0)]
     """
-    # TODO: implement this function
-    # raise NotImplementedError("get_failing_students is not implemented yet.")
     failed_students_list = []
     for key in grades:
         average = get_average(grades,key)
@@ -146,7 +131,7 @@ def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> l
             failed_student=key,list(students[key].values())[0],average  # Create a tuple for each failed student
             failed_students_list.append(failed_student)                 # Make a list of tuple(s)
     failed_students_list.sort(key=lambda x:x[2],reverse=False)          # Sort the list in ascending order of scores
-    return(failed_students_list)
+    return failed_students_list
 
 if __name__ == '__main__':
 

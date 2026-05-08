@@ -1,14 +1,12 @@
 # students.py
 # Developer A — Student management
 # Branch: feature/students
-
+from copy import deepcopy
 # The student database is a dictionary with this structure:
 # {
 #   "S001": {"name": "Alice", "id": "S001"},
 #   "S002": {"name": "Bob",   "id": "S002"},
 # }
-
-
 def add_student(students: dict, name: str, student_id: str) -> dict:
     """
     Add a new student to the students dictionary.
@@ -32,9 +30,15 @@ def add_student(students: dict, name: str, student_id: str) -> dict:
         >>> db
         {"S001": {"name": "Alice", "id": "S001"}}
     """
-    # TODO: implement this function
-    raise NotImplementedError("add_student is not implemented yet.")
+    student={}
+    student["name"] = ' '.join([n.capitalize() for n in name.split()])
+    student["id"] = deepcopy(student_id)
 
+    if student_id not in students:
+        students[student_id] = student
+    else:
+        print(f"Student {student_id} already exists.")
+    return students
 
 def remove_student(students: dict, student_id: str) -> dict:
     """
@@ -56,9 +60,11 @@ def remove_student(students: dict, student_id: str) -> dict:
         >>> db
         {}
     """
-    # TODO: implement this function
-    raise NotImplementedError("remove_student is not implemented yet.")
-
+    try:
+        students.pop(student_id)
+    except KeyError:
+        print(f"The student {student_id} does not exist")
+    return students
 
 def find_student(students: dict, name: str) -> list:
     """
@@ -85,5 +91,4 @@ def find_student(students: dict, name: str) -> list:
         >>> find_student(db, "xyz")
         []
     """
-    # TODO: implement this function
-    raise NotImplementedError("find_student is not implemented yet.")
+    return [s for s in students.values() if name.upper() in s["name"].upper()]

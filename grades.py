@@ -90,15 +90,11 @@ def get_subjects(grades: dict) -> set:
         >>> get_subjects(db)
         {"Math", "English", "Science"}
     """
-    for key in grades:
-        matter = []
-        cnt1=0
-        for key in grades:
-            subjects=(list(grades.values())[cnt1])
-            for k in subjects:
-                matter.append(k)
-            cnt1+=1
-        return set(matter)
+    matter = set()
+    for student in grades.values():
+        for k in student:
+            matter.add(k)
+    return matter
 
 def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> list:
     """

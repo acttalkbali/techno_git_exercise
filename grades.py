@@ -114,13 +114,13 @@ def get_failing_students(students: dict, grades: dict, threshold: int = 50) -> l
 
     Example:
         >>> students = {"S001": {"name": "Alice", "id": "S001"},
-                        "S002": {"name": "Bob",   "id": "S002"}}
+        ...             "S002": {"name": "Bob",   "id": "S002"}}
         >>> grades   = {"S001": {"Math": 40}, "S002": {"Math": 80}}
         >>> get_failing_students(students, grades)
         [("S001", "Alice", 40.0)]
     """
     failed_students_list = []
-    for key in grades:
+    for key in students:
         average = get_average(grades,key)
         if average<threshold:                                           # Process only if stricky < threshold
             failed_student=key,list(students[key].values())[0],average  # Create a tuple for each failed student
@@ -154,3 +154,5 @@ if __name__ == '__main__':
     print("Updating the Math score of student S002 to 75%")
     add_grade(grades, "S002", "Math",    75)
     print(grades)
+
+    failing = get_failing_students(students_db, grades_db, threshold=50)
